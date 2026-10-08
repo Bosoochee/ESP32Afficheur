@@ -92,6 +92,13 @@ class Screen:
         self.set_temperature(self.temp)
         self.set_status(self.status, force=True)
 
+    def clear_band(self, y, h):
+        # Efface une bande horizontale sans toucher l'anneau Tempo : on s'arrête
+        # à la corde du cercle intérieur sur la ligne la plus éloignée du centre
+        dy = max(abs(y - 120), abs(y + h - 1 - 120))
+        half = int((RING_R_IN * RING_R_IN - dy * dy) ** 0.5)
+        self.lcd.fill_rect(120 - half, y, 2 * half + 1, h, self.bg)
+
     def draw_label(self):
         lcd = self.lcd
         x = (lcd.width - lcd.font_width(font_petit, LABEL)) // 2
@@ -104,14 +111,14 @@ class Screen:
         s = ("--.-" if value is None else "{:.1f}".format(value)) + "°C"
         x = (lcd.width - lcd.font_width(font_rond, s)) // 2
         y = (lcd.height - font_rond.HEIGHT) // 2
-        lcd.fill_rect(0, y, lcd.width, font_rond.HEIGHT, self.bg)
+        self.clear_band(y, font_rond.HEIGHT)
         lcd.font_text(font_rond, s, x, y, self.fg(), self.bg)
 
     def set_status(self, msg, force=False):
         if msg == self.status and not force:
             return
         self.status = msg
-        self.lcd.fill_rect(0, STATUS_Y, self.lcd.width, 8, self.bg)
+        self.clear_band(STATUS_Y, 8)
         if msg:
             self.lcd.text_center(msg, STATUS_Y, RED if self.bg == BLACK else WHITE, self.bg)
 
