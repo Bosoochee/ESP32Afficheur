@@ -1,0 +1,4 @@
+# Outils côté PC (le code de la carte tourne sous MicroPython)
+mpremote
+esptool
+pillow  # pour tools/make_font.py uniquement
