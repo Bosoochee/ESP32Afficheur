@@ -52,6 +52,6 @@ mpremote repl                 # console (Ctrl-] pour quitter)
 - `src/lib/font_rond.py`, `src/lib/font_petit.py` : polices rondes lissées (chiffres et libellé), générées par `tools/make_font.py` (Pillow) depuis Arial Rounded MT Bold
 - `src/board.py` : brochage et initialisation du matériel
 - `src/tempo.py` : couleur du jour Tempo d'EDF via l'API RTE (identifiant en base 64 dans `secrets.py`, voir `secrets_example.py`)
-- `src/main.py` : température extérieure lue sur Domoticz, anneau à la couleur du jour Tempo, fond vert en heures creuses et orange en heures pleines, luminosité réduite de 22 h à 7 h
+- `src/main.py` : températures extérieure et intérieure lues sur Domoticz, fond noir, anneau extérieur à la couleur du jour Tempo, anneau intérieur vert en heures creuses et orange en heures pleines, luminosité réduite de 22 h à 7 h
 
 Copiez `src/secrets_example.py` en `src/secrets.py` et renseignez le Wi-Fi et l'identifiant RTE. L'ESP32 n'a pas de pile : l'heure est réglée par NTP au démarrage.
